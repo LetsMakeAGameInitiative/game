@@ -1,0 +1,30 @@
+cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
+
+project(LMAGI LANGUAGES C CXX)
+
+add_executable(LMAGI main.cpp)
+
+# Uncomment when there will proper compiler&linker definitions
+#target_compile_definitions(LMAGI
+#  PRIVATE ${LMAGI_DEFINITIONS}
+#  PRIVATE $<$<CONFIG:Debug>:${LMAGI_DEFINITIONS_DEBUG}>
+#  PRIVATE $<$<CONFIG:Release>:${LMAGI_DEFINITIONS_RELEASE}>)
+
+#target_compile_options(LMAGI
+#  PRIVATE ${LMAGI_FLAGS}
+#  PRIVATE ${LMAGI_FLAGS_C}
+#  PRIVATE ${LMAGI_FLAGS_CXX}
+#  PRIVATE ${LMAGI_FLAGS_LINKER}
+#  PRIVATE $<$<CONFIG:Debug>:${LMAGI_FLAGS_DEBUG}>
+#  PRIVATE $<$<CONFIG:Debug>:${LMAGI_WARNINGS}>
+#  PRIVATE $<$<CONFIG:Release>:${LMAGI_FLAGS_RELEASE}>)
+
+include_directories("${LMAGIE_INCLUDE_DIR}")
+target_link_libraries(LMAGI LMAGIE)
+
+set(CMAKEINSTINCLUDROOT ${CMAKE_CURRENT_SOURCE_DIR}/install)
+
+install(TARGETS LMAGI
+  COMPONENT LMAGI
+  CONFIGURATIONS ${CMAKE_BUILD_TYPE}
+  RUNTIME DESTINATION ${CMAKEINSTINCLUDROOT})
