@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
 
-#TODO: extract common code and move it to cmake submodule
 if(MSVC AND DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
   set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" CACHE STRING "")
 endif()
@@ -37,7 +36,6 @@ if(LMAGI_STANDALONE)
       message(STATUS "Using ccache: ${LMAGI_CCACHE_PROGRAM}")
     endif()
   endif()
-
 endif()
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
@@ -55,18 +53,15 @@ find_package(LMAGIE REQUIRED)
 #this should be handled by find_packed, but for whatever reason it isn't so here you go...
 set(LMAGIE_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../engine/install/include")
 
+set(CMAKEINSTINCLUDROOT ${CMAKE_CURRENT_SOURCE_DIR}/install)
+
 add_subdirectory(Source)
 
 set(LMAGI_ENABLE_TESTS ${LMAGI_STANDALONE} CACHE STRING "Enable unit tests")
 
 if(LMAGI_ENABLE_TESTS)
-	message(STATUS "Tests are not integrated yet")
-#	include(CTest)
-#	enable_testing()
-#	add_subdirectory( tests )
-endif()
-
-file(TO_CMAKE_PATH "${PROJECT_BINARY_DIR}/CMakeLists.txt" LOC_PATH)
-if(EXISTS "${LOC_PATH}")
-    message(FATAL_ERROR "You cannot build in a source directory (or any directory with a CMakeLists.txt file). Please make a build subdirectory. Feel free to remove CMakeCache.txt and CMakeFiles.")
+  message(STATUS "Tests are not integrated yet")
+# include(CTest)
+# enable_testing()
+# add_subdirectory( tests )
 endif()
